@@ -41,7 +41,7 @@ class mdocView extends Component {
           { name: "Mdocs", url: "/mdoc" }
         ]}
         currentPage={{ name: mdoc.name, url: "/mdoc" }}
-        title={"Mdocs"}
+        title={mdoc.name}
       />
     );
     let body;

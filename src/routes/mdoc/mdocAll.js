@@ -40,8 +40,8 @@ class mdocAll extends Component {
     let header = (
       <PageHeader
         ancestors={[{ name: "Home", url: "/" }]}
-        currentPage={{ name: "Mdocs", url: "/mdoc" }}
-        title={"Mdocs"}
+        currentPage={{ name: "docs", url: "/mdoc" }}
+        title={"docs"}
       />
     );
     let body;
