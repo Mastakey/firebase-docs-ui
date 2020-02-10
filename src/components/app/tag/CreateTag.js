@@ -30,27 +30,19 @@ const styles = {
   },
   richText: {
     marginTop: "20px"
-  },
-  richTextHidden: {
-    display: "none"
   }
 };
 
-class CreateMdoc extends Component {
+class CreateTag extends Component {
   constructor() {
     super();
     this.state = {
       name: "",
       description: "",
       descriptionDelta: [],
-      content: "",
-      delta: [],
-      options: "",
-      links: "",
-      status: "",
-      pagenum: "",
-      folder: "",
-      tags: ""
+        status: "",
+        docs: "",
+
     };
   }
   handleChange = event => {
@@ -62,16 +54,11 @@ class CreateMdoc extends Component {
       name: this.state.name,
       description: this.state.description,
       descriptionDelta: this.state.descriptionDelta,
-      content: this.state.content,
-      delta: this.state.delta,
-      options: this.state.options,
-      links: this.state.links,
       status: this.state.status,
-      pagenum: this.state.pagenum,
-      folder: this.state.folder,
-      tags: this.state.tags
+      docs: this.state.docs,
+
     };
-    await this.props.createMdoc(data);
+    await this.props.createTag(data);
   };
   handleCancel = async event => {};
 
@@ -79,12 +66,6 @@ class CreateMdoc extends Component {
     this.setState({
       description: editor.getHTML(),
       descriptionDelta: editor.getContents()
-    });
-  }
-  handleContentQuillChange(value, delta, source, editor) {
-    this.setState({
-      content: editor.getHTML(),
-      delta: editor.getContents()
     });
   }
   render() {
@@ -104,40 +85,13 @@ class CreateMdoc extends Component {
             fullWidth
           />
           <ReactQuill
-            className={classes.richTextHidden}
+            className={classes.richText}
             value={this.state.description}
             modules={QuillSettings.modules}
             formats={QuillSettings.formats}
             name="description"
             placeholder="Description"
             onChange={this.handleQuillChange.bind(this)}
-          />
-          <ReactQuill
-            className={classes.richText}
-            value={this.state.content}
-            modules={QuillSettings.modules}
-            formats={QuillSettings.formats}
-            name="content"
-            placeholder="Content"
-            onChange={this.handleContentQuillChange.bind(this)}
-          />
-          <TextField
-            className={classes.textField}
-            name="options"
-            autoComplete="off"
-            label="Options"
-            variant="outlined"
-            onChange={this.handleChange}
-            fullWidth
-          />
-          <TextField
-            className={classes.textField}
-            name="links"
-            autoComplete="off"
-            label="Links"
-            variant="outlined"
-            onChange={this.handleChange}
-            fullWidth
           />
           <TextField
             className={classes.textField}
@@ -150,31 +104,14 @@ class CreateMdoc extends Component {
           />
           <TextField
             className={classes.textField}
-            name="pagenum"
+            name="docs"
             autoComplete="off"
-            label="Pagenum"
+            label="Docs"
             variant="outlined"
             onChange={this.handleChange}
             fullWidth
           />
-          <TextField
-            className={classes.textField}
-            name="folder"
-            autoComplete="off"
-            label="Folder"
-            variant="outlined"
-            onChange={this.handleChange}
-            fullWidth
-          />
-          <TextField
-            className={classes.textField}
-            name="tags"
-            autoComplete="off"
-            label="Tags"
-            variant="outlined"
-            onChange={this.handleChange}
-            fullWidth
-          />
+
         </Grid>
         <Grid item xs={12}>
           <Button
@@ -193,8 +130,7 @@ class CreateMdoc extends Component {
             variant="contained"
             color="secondary"
             component={Link}
-            to={`/mdoc`}
-          >
+            to={`/tag`}>
             Cancel
           </Button>
         </Grid>
@@ -206,12 +142,12 @@ class CreateMdoc extends Component {
   }
 }
 
-CreateMdoc.propTypes = {
+CreateTag.propTypes = {
   classes: PropTypes.object.isRequired,
   error: PropTypes.object.isRequired,
-  createMdoc: PropTypes.func.isRequired
+  createTag: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({});
 
-export default connect(mapStateToProps, null)(withStyles(styles)(CreateMdoc));
+export default connect(mapStateToProps, null)(withStyles(styles)(CreateTag));

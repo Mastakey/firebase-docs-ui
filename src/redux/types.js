@@ -24,3 +24,13 @@ export const DELETE_MDOC = "DELETE_MDOC";
 export const WRITE_LOADING_MDOC = "WRITE_LOADING_MDOC";
 export const READ_LOADING_MDOC = "READ_LOADING_MDOC";
 export const SET_MDOC_ERROR = "SET_MDOC_ERROR";
+
+// Tag reducers
+export const CREATE_TAG = "CREATE_TAG";
+export const READ_TAG_ALL = "READ_TAG_ALL";
+export const READ_TAG = "READ_TAG";
+export const UPDATE_TAG = "UPDATE_TAG";
+export const DELETE_TAG = "DELETE_TAG";
+export const WRITE_LOADING_TAG = "WRITE_LOADING_TAG";
+export const READ_LOADING_TAG = "READ_LOADING_TAG";
+export const SET_TAG_ERROR = "SET_TAG_ERROR";

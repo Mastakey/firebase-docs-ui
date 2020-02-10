@@ -34,13 +34,10 @@ const styles = {
   },
   richText: {
     marginTop: "20px"
-  },
-  richTextHidden: {
-    display: "none"
   }
 };
 
-class EditMdocFull extends Component {
+class EditTagFull extends Component {
   render() {
     const classes = this.props.classes;
     return (
@@ -57,40 +54,12 @@ class EditMdocFull extends Component {
             fullWidth
           />
           <ReactQuill
-            className={classes.richTextHidden}
+            className={classes.richText}
             value={this.props.state.description}
             modules={QuillSettings.modules}
             formats={QuillSettings.formats}
             name="description"
             onChange={this.props.handleQuillChange}
-          />
-          <ReactQuill
-            className={classes.richText}
-            value={this.props.state.content}
-            modules={QuillSettings.modules}
-            formats={QuillSettings.formats}
-            name="content"
-            onChange={this.props.handleQuillChangeContent}
-          />
-          <TextField
-            className={classes.textField}
-            name="options"
-            autoComplete="off"
-            label="Options"
-            variant="outlined"
-            value={this.props.state.options}
-            onChange={this.props.handleChange}
-            fullWidth
-          />
-          <TextField
-            className={classes.textField}
-            name="links"
-            autoComplete="off"
-            label="Links"
-            variant="outlined"
-            value={this.props.state.links}
-            onChange={this.props.handleChange}
-            fullWidth
           />
           <TextField
             className={classes.textField}
@@ -104,34 +73,15 @@ class EditMdocFull extends Component {
           />
           <TextField
             className={classes.textField}
-            name="pagenum"
+            name="docs"
             autoComplete="off"
-            label="Pagenum"
+            label="Docs"
             variant="outlined"
-            value={this.props.state.pagenum}
+            value={this.props.state.docs}
             onChange={this.props.handleChange}
             fullWidth
           />
-          <TextField
-            className={classes.textField}
-            name="folder"
-            autoComplete="off"
-            label="Folder"
-            variant="outlined"
-            value={this.props.state.folder}
-            onChange={this.props.handleChange}
-            fullWidth
-          />
-          <TextField
-            className={classes.textField}
-            name="tags"
-            autoComplete="off"
-            label="Tags"
-            variant="outlined"
-            value={this.props.state.tags}
-            onChange={this.props.handleChange}
-            fullWidth
-          />
+
         </Grid>
         <Grid item xs={12}>
           <Button
@@ -148,7 +98,7 @@ class EditMdocFull extends Component {
           </Button>
           <Button
             component={Link}
-            to={`/mdoc/${this.props.id}`}
+            to={`/tag/${this.props.id}`}
             variant="contained"
             color="secondary"
           >
@@ -161,8 +111,8 @@ class EditMdocFull extends Component {
   }
 }
 
-EditMdocFull.propTypes = { classes: PropTypes.object.isRequired, error: PropTypes.object.isRequired };
+EditTagFull.propTypes = { classes: PropTypes.object.isRequired, error: PropTypes.object.isRequired };
 
 const mapStateToProps = state => ({});
 
-export default connect(mapStateToProps, null)(withStyles(styles)(EditMdocFull));
+export default connect(mapStateToProps, null)(withStyles(styles)(EditTagFull));

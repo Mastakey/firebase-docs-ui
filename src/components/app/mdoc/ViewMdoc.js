@@ -53,7 +53,7 @@ class ViewMdoc extends Component {
     return (
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          {mdoc.tags ? <TagList tags={mdoc.tags.split(",")} /> : null}
+          {mdoc.tags ? <TagList tags={mdoc.tags} /> : null}
         </Grid>
         <Grid item xs={12}>
           <Paper elevation={3} className={classes.paper}>
@@ -74,7 +74,7 @@ class ViewMdoc extends Component {
             <Typography variant="body1">
               <span
                 dangerouslySetInnerHTML={{
-                  __html: mdoc.description
+                  __html: mdoc.content
                 }}
               />
             </Typography>

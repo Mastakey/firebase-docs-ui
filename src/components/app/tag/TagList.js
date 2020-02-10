@@ -12,7 +12,7 @@ function TagList(props) {
   const tags = props.tags;
   const classes = props.classes;
   let markup = (<Fragment></Fragment>);
-  if (tags && tags.length > 0){
+  if (tags && tags.length > 0 && Array.isArray(tags)){
   markup = tags.map(tag => {
     const link = `/tag/${tag}`;
     return (

@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 
 //Redux
 import { connect } from "react-redux";
-import { getMdoc, editMdoc } from "../../redux/actions/mdocActions";
+import { getTag, editTag } from "../../redux/actions/tagActions";
 
 //Components
-import EditMdoc from "../../components/app/mdoc/EditMdoc";
+import EditTag from "../../components/app/tag/EditTag";
 import LoadingBasic from "../../components/loading/LoadingBasic";
 import PageHeader from "../../components/nav/PageHeader";
 import ErrorHandler from "../../components/error/ErrorHandler";
@@ -31,45 +31,35 @@ const styles = {
   }
 };
 
-class mdocEdit extends Component {
+class tagEdit extends Component {
   constructor() {
     super();
     this.state = {
       name: "",
       description: "",
       descriptionDelta: [],
-      content: "",
-      delta: "",
-      options: "",
-      links: "",
-      status: "",
-      pagenum: "",
-      folder: "",
-      tags: ""
+          status: "",
+        docs: "",
+
     };
   }
   async componentDidMount() {
-    await this.props.getMdoc(this.props.match.params.id);
-    const mdoc = this.props.mdoc.mdoc;
-    const errors = this.props.mdoc.errors;
+    await this.props.getTag(this.props.match.params.id);
+    const tag = this.props.tag.tag;
+    const errors = this.props.tag.errors;
     if (!errors || !(errors.length > 0)) {
       this.setState({
-        name: mdoc.name,
-        description: mdoc.description,
-        descriptionDelta: mdoc.descriptionDelta,
-        content: mdoc.content,
-        delta: mdoc.delta,
-        options: mdoc.options,
-        links: mdoc.links,
-        status: mdoc.status,
-        pagenum: mdoc.pagenum,
-        folder: mdoc.folder,
-        tags: mdoc.tags
+        name: tag.name,
+        description: tag.description,
+        descriptionDelta: tag.descriptionDelta,
+      status: tag.status,
+      docs: tag.docs,
+
       });
     }
   }
-  async editMdoc(data) {
-    await this.props.editMdoc(
+  async editTag(data) {
+    await this.props.editTag(
       this.props.match.params.id,
       data,
       this.props.history
@@ -84,46 +74,35 @@ class mdocEdit extends Component {
       descriptionDelta: editor.getContents()
     });
   }
-  handleQuillChangeContent(value, delta, source, editor) {
-    this.setState({
-      content: editor.getHTML(),
-      delta: editor.getContents()
-    });
-  }
   handleSave = async event => {
     event.preventDefault();
     const data = {
       name: this.state.name,
       description: this.state.description,
       descriptionDelta: this.state.descriptionDelta,
-      content: this.state.content,
-      delta: this.state.delta,
-      options: this.state.options,
-      links: this.state.links,
       status: this.state.status,
-      pagenum: this.state.pagenum,
-      folder: this.state.folder,
-      tags: this.state.tags
+      docs: this.state.docs,
+
     };
-    await this.props.editMdoc(
+    await this.props.editTag(
       this.props.match.params.id,
       data,
       this.props.history
     );
   };
   render() {
-    const loading = this.props.mdoc.readLoading;
-    const saveLoading = this.props.mdoc.writeLoading;
-    const error = this.props.mdoc.error;
+    const loading = this.props.tag.readLoading;
+    const saveLoading = this.props.tag.writeLoading;
+    const error = this.props.tag.error;
     let header = (
       <PageHeader
         ancestors={[
           { name: "Home", url: "/" },
-          { name: "docs", url: "/mdoc" },
-          { name: this.state.name, url: `/mdoc/${this.props.match.params.id}` }
+          { name: "Tags", url: "/tag" },
+          { name: this.state.name, url: `/tag/${this.props.match.params.id}` }
         ]}
         currentPage={{ name: "Edit", url: "#" }}
-        title={"docs"}
+        title={"Tags"}
       />
     );
     let body;
@@ -134,7 +113,7 @@ class mdocEdit extends Component {
       body = <LoadingBasic />;
     } else {
       body = (
-        <EditMdoc
+        <EditTag
           handleSave={this.handleSave.bind(this)}
           handleChange={this.handleChange.bind(this)}
           handleQuillChange={this.handleQuillChange.bind(this)}
@@ -161,16 +140,16 @@ class mdocEdit extends Component {
   }
 }
 
-mdocEdit.propTypes = {
+tagEdit.propTypes = {
   classes: PropTypes.object.isRequired,
-  getMdoc: PropTypes.func.isRequired,
-  editMdoc: PropTypes.func.isRequired
+  getTag: PropTypes.func.isRequired,
+  editTag: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  mdoc: state.mdoc
+  tag: state.tag
 });
 
-export default connect(mapStateToProps, { getMdoc, editMdoc })(
-  withStyles(styles)(mdocEdit)
+export default connect(mapStateToProps, { getTag, editTag })(
+  withStyles(styles)(tagEdit)
 );
