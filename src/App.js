@@ -22,7 +22,7 @@ import mdocEdit from "./routes/mdoc/mdocEdit";
 
 //Tag
 import tagAll from "./routes/tag/tagAll";
-import tagHome from "./routes/tag/tagHome";
+//import tagHome from "./routes/tag/tagHome";
 import tagView from "./routes/tag/tagView";
 import tagCreate from "./routes/tag/tagCreate";
 import tagEdit from "./routes/tag/tagEdit";

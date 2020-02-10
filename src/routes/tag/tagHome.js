@@ -17,7 +17,6 @@ class tagHome extends Component {
     this.props.getTags();
   }
   render() {
-    const classes = this.props.classes;
     const tags = this.props.tag.tags;
     let tagArray = [];
     if (tags && tags.length > 0 && Array.isArray(tags)){
