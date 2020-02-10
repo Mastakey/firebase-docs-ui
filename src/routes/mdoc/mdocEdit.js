@@ -110,11 +110,11 @@ class mdocEdit extends Component {
       <PageHeader
         ancestors={[
           { name: "Home", url: "/" },
-          { name: "Mdocs", url: "/mdoc" },
+          { name: "docs", url: "/mdoc" },
           { name: this.state.name, url: `/mdoc/${this.props.match.params.id}` }
         ]}
         currentPage={{ name: "Edit", url: "#" }}
-        title={"Mdocs"}
+        title={"docs"}
       />
     );
     let body;

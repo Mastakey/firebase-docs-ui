@@ -38,7 +38,7 @@ class mdocView extends Component {
       <PageHeader
         ancestors={[
           { name: "Home", url: "/" },
-          { name: "Mdocs", url: "/mdoc" }
+          { name: "docs", url: "/mdoc" }
         ]}
         currentPage={{ name: mdoc.name, url: "/mdoc" }}
         title={mdoc.name}

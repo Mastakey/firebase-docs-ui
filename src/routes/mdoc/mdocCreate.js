@@ -27,7 +27,7 @@ class mdocCreate extends Component {
       <PageHeader
         ancestors={[
           { name: "Home", url: "/" },
-          { name: "Mdocs", url: "/mdoc" }
+          { name: "docs", url: "/mdoc" }
         ]}
         currentPage={{ name: "Create", url: "#" }}
         title={"Create Mdoc"}
