@@ -59,6 +59,7 @@ class mdocEdit extends Component {
         descriptionDelta: mdoc.descriptionDelta,
         content: mdoc.content,
         delta: mdoc.delta,
+        contentUpdated: false,
         options: mdoc.options,
         links: mdoc.links,
         status: mdoc.status,
@@ -103,7 +104,8 @@ class mdocEdit extends Component {
       status: this.state.status,
       pagenum: this.state.pagenum,
       folder: this.state.folder,
-      tags: this.state.tags
+      tags: this.state.tags,
+      contentUpdated: true //TODO: check
     };
     await this.props.editMdoc(
       this.props.match.params.id,
@@ -138,6 +140,7 @@ class mdocEdit extends Component {
           handleSave={this.handleSave.bind(this)}
           handleChange={this.handleChange.bind(this)}
           handleQuillChange={this.handleQuillChange.bind(this)}
+          handleQuillChangeContent={this.handleQuillChangeContent.bind(this)}
           id={this.props.match.params.id}
           loading={saveLoading}
           state={this.state}

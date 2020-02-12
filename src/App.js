@@ -6,6 +6,8 @@ import "./App.css";
 import Navbar from "./components/nav/Navbar";
 import Alerts from "./components/alerts/Alerts";
 
+import TreeTest from "./components/tree/TreeTest";
+
 //Routes
 import Home from "./routes/Home";
 import Login from "./routes/Login";
@@ -79,6 +81,7 @@ function App() {
               <Route exact path="/tag/:tag" component={mdocByTag} />
               <Route exact path="/tag/view/:id" component={tagView} />
               <Route exact path="/tag/edit/:id" component={tagEdit} />
+              <Route exact path="/tree" component={TreeTest} />
             </Switch>
           </div>
         </Router>
