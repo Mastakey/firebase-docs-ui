@@ -15,6 +15,16 @@ export const ADD_MESSAGE = "ADD_MESSAGE";
 export const DELETE_MESSAGE = "DELETE_MESSAGE";
 export const CLEAR_MESSAGES = "CLEAR_MESSAGES";
 
+// Folder reducers
+export const CREATE_FOLDER = "CREATE_FOLDER";
+export const READ_FOLDER_ALL = "READ_FOLDER_ALL";
+export const READ_FOLDER = "READ_FOLDER";
+export const UPDATE_FOLDER = "UPDATE_FOLDER";
+export const DELETE_FOLDER = "DELETE_FOLDER";
+export const WRITE_LOADING_FOLDER = "WRITE_LOADING_FOLDER";
+export const READ_LOADING_FOLDER = "READ_LOADING_FOLDER";
+export const SET_FOLDER_ERROR = "SET_FOLDER_ERROR";
+
 // Mdoc reducers
 export const CREATE_MDOC = "CREATE_MDOC";
 export const READ_MDOC_ALL = "READ_MDOC_ALL";

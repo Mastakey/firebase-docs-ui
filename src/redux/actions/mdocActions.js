@@ -46,6 +46,23 @@ export const getMdocsByTag = (tag) => async dispatch => {
   }
 };
 
+export const getMdocsByFolder = folderId => async dispatch => {
+  dispatch({ type: READ_LOADING_MDOC });
+  try {
+    const mdocs = await axios.get("/folder/" + folderId + "/mdoc");
+    dispatch({ type: READ_MDOC_ALL, payload: mdocs.data });
+    return mdocs;
+  } catch (err) {
+    const errors = getErrors(err);
+    console.log(err);
+    console.log(errors);
+    dispatch({
+      type: SET_MDOC_ERROR,
+      payload: errors
+    });
+  }
+};
+
 export const getMdocsLimit = limit => async dispatch => {
   dispatch({ type: READ_LOADING_MDOC });
   try {

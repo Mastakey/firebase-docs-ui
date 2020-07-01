@@ -27,6 +27,10 @@ const styles = {
   },
   fabDelete: {
     float: "right"
+  },
+  editStickyPosition: {
+    position: "sticky",
+    bottom: "50px"
   }
 };
 
@@ -83,7 +87,10 @@ class ViewMdoc extends Component {
             <Typography variant="body1">{mdoc.status}</Typography>
             <Typography variant="body1">{mdoc.pagenum}</Typography>
             <Typography variant="body1">{mdoc.folder}</Typography>
-            <Link to={`/mdoc/edit/${mdoc.id}`}>
+            <Link
+              to={`/mdoc/edit/${mdoc.id}`}
+              className={classes.editStickyPosition}
+            >
               <Fab size="small" color="default" className={classes.fab}>
                 <EditIcon />
               </Fab>

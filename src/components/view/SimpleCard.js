@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
 
 //Material UI
 import withStyles from "@material-ui/core/styles/withStyles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
+import Link from "@material-ui/core/Link";
 
 const styles = {
   card: {
@@ -16,7 +15,10 @@ const styles = {
     marginBottom: "20px"
   },
   cardLink: {
-    color: "#000000"
+    color: "#000000",
+    "&:hover": {
+      textDecoration: "none"
+    }
   },
   cardContent: {
     "&:hover": {
@@ -41,7 +43,7 @@ class SimpleCard extends Component {
     const link = this.props.link;
     return (
       <Card className={classes.card} elevation={3}>
-        <Link to={link.url} className={classes.cardLink}>
+        <Link href={link.url} className={classes.cardLink}>
           <CardContent className={classes.cardContent}>
             <Typography variant="h6" component="h6">
               {title}
@@ -69,6 +71,4 @@ class SimpleCard extends Component {
 
 SimpleCard.propTypes = { classes: PropTypes.object.isRequired };
 
-const mapStateToProps = state => ({});
-
-export default connect(mapStateToProps, null)(withStyles(styles)(SimpleCard));
+export default withStyles(styles)(SimpleCard);
