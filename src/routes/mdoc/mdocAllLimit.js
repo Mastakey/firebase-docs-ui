@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 //Redux
 import { connect } from "react-redux";
-import { getMdocs } from "../../redux/actions/mdocActions";
+import { getMdocsLimit } from "../../redux/actions/mdocActions";
 import { addMessage } from "../../redux/actions/uiActions";
 
 //Components
@@ -25,16 +25,12 @@ import AddIcon from "@material-ui/icons/Add";
 const styles = {
   fab: {
     marginTop: "20px"
-  },
-  addStickyPosition: {
-    position: "sticky",
-    bottom: "50px"
   }
 };
 
-class mdocAll extends Component {
+class mdocAllLimit extends Component {
   async componentDidMount() {
-    this.props.getMdocs();
+    this.props.getMdocsLimit(this.props.match.params.limit);
   }
   render() {
     const classes = this.props.classes;
@@ -59,16 +55,18 @@ class mdocAll extends Component {
       );
     } else {
       body = (
-        <Grid>
+        <Fragment>
           <Grid container item xs={12}>
             <AllMdoc mdocs={mdocs} />
           </Grid>
-          <Link to={`/mdoc/create`} className={classes.addStickyPosition}>
-            <Fab size="small" color="default" className={classes.fab}>
-              <AddIcon />
-            </Fab>
-          </Link>
-        </Grid>
+          <Grid container item xs={12}>
+            <Link to={`/mdoc/create`}>
+              <Fab size="small" color="default" className={classes.fab}>
+                <AddIcon />
+              </Fab>
+            </Link>
+          </Grid>
+        </Fragment>
       );
     }
     return (
@@ -87,9 +85,9 @@ class mdocAll extends Component {
   }
 }
 
-mdocAll.propTypes = {
+mdocAllLimit.propTypes = {
   classes: PropTypes.object.isRequired,
-  getMdocs: PropTypes.func.isRequired,
+  getMdocsLimit: PropTypes.func.isRequired,
   addMessage: PropTypes.func.isRequired,
   mdoc: PropTypes.object.isRequired
 };
@@ -99,6 +97,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  getMdocs,
+  getMdocsLimit,
   addMessage
-})(withStyles(styles)(mdocAll));
+})(withStyles(styles)(mdocAllLimit));

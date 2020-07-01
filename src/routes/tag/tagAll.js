@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 
 //Redux
 import { connect } from "react-redux";
-import { getMdocs } from "../../redux/actions/mdocActions";
+import { getTags } from "../../redux/actions/tagActions";
 import { addMessage } from "../../redux/actions/uiActions";
 
 //Components
 //import SimpleTable from "../../components/table/SimpleTable";
-import AllMdoc from "../../components/app/mdoc/AllMdoc";
+import AllTag from "../../components/app/tag/AllTag";
 import LoadingBasic from "../../components/loading/LoadingBasic";
 import PageHeader from "../../components/nav/PageHeader";
 import ErrorHandler from "../../components/error/ErrorHandler";
@@ -25,27 +25,23 @@ import AddIcon from "@material-ui/icons/Add";
 const styles = {
   fab: {
     marginTop: "20px"
-  },
-  addStickyPosition: {
-    position: "sticky",
-    bottom: "50px"
   }
 };
 
-class mdocAll extends Component {
+class tagAll extends Component {
   async componentDidMount() {
-    this.props.getMdocs();
+    this.props.getTags();
   }
   render() {
     const classes = this.props.classes;
-    const mdocs = this.props.mdoc.mdocs;
-    const loading = this.props.mdoc.readLoading;
-    const error = this.props.mdoc.error;
+    const tags = this.props.tag.tags;
+    const loading = this.props.tag.readLoading;
+    const error = this.props.tag.error;
     let header = (
       <PageHeader
         ancestors={[{ name: "Home", url: "/" }]}
-        currentPage={{ name: "docs", url: "/mdoc" }}
-        title={"docs"}
+        currentPage={{ name: "Tags", url: "/tag" }}
+        title={"Tags"}
       />
     );
     let body;
@@ -59,16 +55,18 @@ class mdocAll extends Component {
       );
     } else {
       body = (
-        <Grid>
+        <Fragment>
           <Grid container item xs={12}>
-            <AllMdoc mdocs={mdocs} />
+            <AllTag tags={tags} />
           </Grid>
-          <Link to={`/mdoc/create`} className={classes.addStickyPosition}>
-            <Fab size="small" color="default" className={classes.fab}>
-              <AddIcon />
-            </Fab>
-          </Link>
-        </Grid>
+          <Grid container item xs={12}>
+            <Link to={`/tag/create`}>
+              <Fab size="small" color="default" className={classes.fab}>
+                <AddIcon />
+              </Fab>
+            </Link>
+          </Grid>
+        </Fragment>
       );
     }
     return (
@@ -87,18 +85,18 @@ class mdocAll extends Component {
   }
 }
 
-mdocAll.propTypes = {
+tagAll.propTypes = {
   classes: PropTypes.object.isRequired,
-  getMdocs: PropTypes.func.isRequired,
+  getTags: PropTypes.func.isRequired,
   addMessage: PropTypes.func.isRequired,
-  mdoc: PropTypes.object.isRequired
+  tag: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  mdoc: state.mdoc
+  tag: state.tag
 });
 
 export default connect(mapStateToProps, {
-  getMdocs,
+  getTags,
   addMessage
-})(withStyles(styles)(mdocAll));
+})(withStyles(styles)(tagAll));

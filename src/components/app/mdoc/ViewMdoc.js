@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 
 //Components
 import DeleteDialog from "../../../components/dialog/DeleteDialog";
+import TagList from "../tag/TagList";
 
 //Material UI
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -26,6 +27,10 @@ const styles = {
   },
   fabDelete: {
     float: "right"
+  },
+  editStickyPosition: {
+    position: "sticky",
+    bottom: "50px"
   }
 };
 
@@ -52,41 +57,45 @@ class ViewMdoc extends Component {
     return (
       <Grid container spacing={2}>
         <Grid item xs={12}>
-            <Paper elevation={3} className={classes.paper}>
-              <Fab
-                size="small"
-                color="secondary"
-                className={classes.fabDelete}
-                onClick={this.handleDelete.bind(this)}
-              >
-                <DeleteIcon />
-              </Fab>
-              <DeleteDialog
-                deleteFunction={this.props.deleteMdoc}
-                open={this.state.showDeleteDialog}
-                handleClose={this.handleDeleteDialogClose.bind(this)}
-              />
-              <Typography variant="h5">{mdoc.name}</Typography>
-              <Typography variant="body1">
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: mdoc.description
-                  }}
-                />
-              </Typography>
-              <Typography variant="body1">{mdoc.options}</Typography>
-              <Typography variant="body1">{mdoc.links}</Typography>
-              <Typography variant="body1">{mdoc.status}</Typography>
-              <Typography variant="body1">{mdoc.pagenum}</Typography>
-              <Typography variant="body1">{mdoc.folder}</Typography>
-              <Typography variant="body1">{mdoc.tags}</Typography>
+          {mdoc.tags ? <TagList tags={mdoc.tags} /> : null}
+        </Grid>
+        <Grid item xs={12}>
+          <Paper elevation={3} className={classes.paper}>
+            <Fab
+              size="small"
+              color="secondary"
+              className={classes.fabDelete}
+              onClick={this.handleDelete.bind(this)}
+            >
+              <DeleteIcon />
+            </Fab>
+            <DeleteDialog
+              deleteFunction={this.props.deleteMdoc}
+              open={this.state.showDeleteDialog}
+              handleClose={this.handleDeleteDialogClose.bind(this)}
+            />
 
-              <Link to={`/mdoc/edit/${mdoc.id}`}>
-                <Fab size="small" color="default" className={classes.fab}>
-                  <EditIcon />
-                </Fab>
-              </Link>
-            </Paper>
+            <Typography variant="body1">
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: mdoc.content
+                }}
+              />
+            </Typography>
+            <Typography variant="body1">{mdoc.options}</Typography>
+            <Typography variant="body1">{mdoc.links}</Typography>
+            <Typography variant="body1">{mdoc.status}</Typography>
+            <Typography variant="body1">{mdoc.pagenum}</Typography>
+            <Typography variant="body1">{mdoc.folder}</Typography>
+            <Link
+              to={`/mdoc/edit/${mdoc.id}`}
+              className={classes.editStickyPosition}
+            >
+              <Fab size="small" color="default" className={classes.fab}>
+                <EditIcon />
+              </Fab>
+            </Link>
+          </Paper>
         </Grid>
       </Grid>
     );

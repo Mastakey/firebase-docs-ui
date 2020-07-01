@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 //Redux
 import { connect } from "react-redux";
-import { getMdocs } from "../../redux/actions/mdocActions";
+import { getMdocsByTag } from "../../redux/actions/mdocActions";
 import { addMessage } from "../../redux/actions/uiActions";
 
 //Components
@@ -25,16 +25,12 @@ import AddIcon from "@material-ui/icons/Add";
 const styles = {
   fab: {
     marginTop: "20px"
-  },
-  addStickyPosition: {
-    position: "sticky",
-    bottom: "50px"
   }
 };
 
-class mdocAll extends Component {
+class mdocByTag extends Component {
   async componentDidMount() {
-    this.props.getMdocs();
+    this.props.getMdocsByTag(this.props.match.params.tag);
   }
   render() {
     const classes = this.props.classes;
@@ -43,9 +39,12 @@ class mdocAll extends Component {
     const error = this.props.mdoc.error;
     let header = (
       <PageHeader
-        ancestors={[{ name: "Home", url: "/" }]}
-        currentPage={{ name: "docs", url: "/mdoc" }}
-        title={"docs"}
+        ancestors={[
+          { name: "Home", url: "/" },
+          { name: "docs", url: "/mdoc" }
+        ]}
+        currentPage={{ name: this.props.match.params.tag, url: "#" }}
+        title={this.props.match.params.tag}
       />
     );
     let body;
@@ -59,16 +58,18 @@ class mdocAll extends Component {
       );
     } else {
       body = (
-        <Grid>
+        <Fragment>
           <Grid container item xs={12}>
             <AllMdoc mdocs={mdocs} />
           </Grid>
-          <Link to={`/mdoc/create`} className={classes.addStickyPosition}>
-            <Fab size="small" color="default" className={classes.fab}>
-              <AddIcon />
-            </Fab>
-          </Link>
-        </Grid>
+          <Grid container item xs={12}>
+            <Link to={`/mdoc/create`}>
+              <Fab size="small" color="default" className={classes.fab}>
+                <AddIcon />
+              </Fab>
+            </Link>
+          </Grid>
+        </Fragment>
       );
     }
     return (
@@ -87,9 +88,9 @@ class mdocAll extends Component {
   }
 }
 
-mdocAll.propTypes = {
+mdocByTag.propTypes = {
   classes: PropTypes.object.isRequired,
-  getMdocs: PropTypes.func.isRequired,
+  getMdocsByTag: PropTypes.func.isRequired,
   addMessage: PropTypes.func.isRequired,
   mdoc: PropTypes.object.isRequired
 };
@@ -99,6 +100,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  getMdocs,
+  getMdocsByTag,
   addMessage
-})(withStyles(styles)(mdocAll));
+})(withStyles(styles)(mdocByTag));

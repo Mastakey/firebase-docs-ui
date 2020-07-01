@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 
 //Redux
 import { connect } from "react-redux";
-import { getMdoc, deleteMdoc } from "../../redux/actions/mdocActions";
+import { getTag, deleteTag } from "../../redux/actions/tagActions";
 
 //Components
-import ViewMdoc from "../../components/app/mdoc/ViewMdoc";
+import ViewTag from "../../components/app/tag/ViewTag";
 import LoadingBasic from "../../components/loading/LoadingBasic";
 import PageHeader from "../../components/nav/PageHeader";
 import ErrorHandler from "../../components/error/ErrorHandler";
@@ -21,27 +21,27 @@ const styles = {
   }
 };
 
-class mdocView extends Component {
+class tagView extends Component {
   async componentDidMount() {
     const id = this.props.match.params.id;
-    await this.props.getMdoc(id);
+    await this.props.getTag(id);
   }
-  async deleteMdoc() {
+  async deleteTag() {
     const id = this.props.match.params.id;
-    await this.props.deleteMdoc(id, this.props.history);
+    await this.props.deleteTag(id, this.props.history);
   }
   render() {
-    const mdoc = this.props.mdoc.mdoc;
-    const loading = this.props.mdoc.readLoading;
-    const error = this.props.mdoc.error;
+    const tag = this.props.tag.tag;
+    const loading = this.props.tag.readLoading;
+    const error = this.props.tag.error;
     let header = (
       <PageHeader
         ancestors={[
           { name: "Home", url: "/" },
-          { name: "docs", url: "/mdoc" }
+          { name: "Tags", url: "/tag" }
         ]}
-        currentPage={{ name: mdoc.name, url: "/mdoc" }}
-        title={mdoc.name}
+        currentPage={{ name: tag.name, url: "/tag" }}
+        title={"Tags"}
       />
     );
     let body;
@@ -53,7 +53,7 @@ class mdocView extends Component {
         </Grid>
       );
     } else {
-      body = <ViewMdoc mdoc={mdoc} deleteMdoc={this.deleteMdoc.bind(this)} />;
+      body = <ViewTag tag={tag} deleteTag={this.deleteTag.bind(this)} />;
     }
     return (
       <Grid container spacing={2}>
@@ -71,13 +71,13 @@ class mdocView extends Component {
   }
 }
 
-mdocView.propTypes = {
+tagView.propTypes = {
   classes: PropTypes.object.isRequired,
-  deleteMdoc: PropTypes.func.isRequired
+  deleteTag: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({ mdoc: state.mdoc });
+const mapStateToProps = state => ({ tag: state.tag });
 
-export default connect(mapStateToProps, { getMdoc, deleteMdoc })(
-  withStyles(styles)(mdocView)
+export default connect(mapStateToProps, { getTag, deleteTag })(
+  withStyles(styles)(tagView)
 );

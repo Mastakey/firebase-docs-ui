@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 
 //Redux
 import { connect } from "react-redux";
-import { createMdoc } from "../../redux/actions/mdocActions";
+import { createFolder } from "../../redux/actions/folderActions";
 
 //Components
-import CreateMdoc from "../../components/app/mdoc/CreateMdoc";
+import CreateFolder from "../../components/app/folder/CreateFolder";
 import LoadingBasic from "../../components/loading/LoadingBasic";
 import PageHeader from "../../components/nav/PageHeader";
 
@@ -16,21 +16,21 @@ import Grid from "@material-ui/core/Grid";
 
 const styles = {};
 
-class mdocCreate extends Component {
-  async createMdoc(data) {
-    await this.props.createMdoc(data, this.props.history);
+class folderCreate extends Component {
+  async createFolder(data) {
+    await this.props.createFolder(data, this.props.history);
   }
   render() {
-    const loading = this.props.mdoc.loading;
-    const error = this.props.mdoc.error;
+    const loading = this.props.folder.loading;
+    const error = this.props.folder.error;
     let header = (
       <PageHeader
         ancestors={[
           { name: "Home", url: "/" },
-          { name: "docs", url: "/mdoc" }
+          { name: "Folders", url: "/folder" }
         ]}
         currentPage={{ name: "Create", url: "#" }}
-        title={"Create Mdoc"}
+        title={"Create Folder"}
       />
     );
     let footer;
@@ -41,9 +41,9 @@ class mdocCreate extends Component {
       body = <LoadingBasic />;
     } else {
       body = (
-        <CreateMdoc
+        <CreateFolder
           loading={loading}
-          createMdoc={this.createMdoc.bind(this)}
+          createFolder={this.createFolder.bind(this)}
           error={error}
         />
       );
@@ -63,15 +63,15 @@ class mdocCreate extends Component {
   }
 }
 
-mdocCreate.propTypes = {
+folderCreate.propTypes = {
   classes: PropTypes.object.isRequired,
-  createMdoc: PropTypes.func.isRequired
+  createFolder: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  mdoc: state.mdoc
+  folder: state.folder
 });
 
-export default connect(mapStateToProps, { createMdoc })(
-  withStyles(styles)(mdocCreate)
+export default connect(mapStateToProps, { createFolder })(
+  withStyles(styles)(folderCreate)
 );

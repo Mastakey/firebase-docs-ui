@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 
 //Redux
 import { connect } from "react-redux";
-import { createMdoc } from "../../redux/actions/mdocActions";
+import { createTag } from "../../redux/actions/tagActions";
 
 //Components
-import CreateMdoc from "../../components/app/mdoc/CreateMdoc";
+import CreateTag from "../../components/app/tag/CreateTag";
 import LoadingBasic from "../../components/loading/LoadingBasic";
 import PageHeader from "../../components/nav/PageHeader";
 
@@ -16,21 +16,21 @@ import Grid from "@material-ui/core/Grid";
 
 const styles = {};
 
-class mdocCreate extends Component {
-  async createMdoc(data) {
-    await this.props.createMdoc(data, this.props.history);
+class tagCreate extends Component {
+  async createTag(data) {
+    await this.props.createTag(data, this.props.history);
   }
   render() {
-    const loading = this.props.mdoc.loading;
-    const error = this.props.mdoc.error;
+    const loading = this.props.tag.loading;
+    const error = this.props.tag.error;
     let header = (
       <PageHeader
         ancestors={[
           { name: "Home", url: "/" },
-          { name: "docs", url: "/mdoc" }
+          { name: "Tags", url: "/tag" }
         ]}
         currentPage={{ name: "Create", url: "#" }}
-        title={"Create Mdoc"}
+        title={"Create Tag"}
       />
     );
     let footer;
@@ -41,9 +41,9 @@ class mdocCreate extends Component {
       body = <LoadingBasic />;
     } else {
       body = (
-        <CreateMdoc
+        <CreateTag
           loading={loading}
-          createMdoc={this.createMdoc.bind(this)}
+          createTag={this.createTag.bind(this)}
           error={error}
         />
       );
@@ -63,15 +63,15 @@ class mdocCreate extends Component {
   }
 }
 
-mdocCreate.propTypes = {
+tagCreate.propTypes = {
   classes: PropTypes.object.isRequired,
-  createMdoc: PropTypes.func.isRequired
+  createTag: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  mdoc: state.mdoc
+  tag: state.tag
 });
 
-export default connect(mapStateToProps, { createMdoc })(
-  withStyles(styles)(mdocCreate)
+export default connect(mapStateToProps, { createTag })(
+  withStyles(styles)(tagCreate)
 );
